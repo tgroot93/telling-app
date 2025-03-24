@@ -121,21 +121,6 @@ function App() {
     })
   }, [dranken, tellingen])
 
-  // Bereken het overzicht per ronde
-  const rondeOverzicht = useMemo<RondeOverzicht[]>(() => {
-    return locaties.map((locatie, rondeIndex) => {
-      const drankenInRonde = dranken.filter(d => d.locatieId === locatie.id)
-      const geteld = tellingen.filter(t => 
-        drankenInRonde.some(d => d.id === t.drankId)
-      )
-
-      return {
-        ronde: rondeIndex + 1,
-        geteld
-      }
-    })
-  }, [locaties, dranken, tellingen])
-
   // Reset alle tellingen
   const handleReset = () => {
     setTellingen([])
