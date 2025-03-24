@@ -123,14 +123,14 @@ function App() {
 
   // Bereken het overzicht per ronde
   const rondeOverzicht = useMemo<RondeOverzicht[]>(() => {
-    return locaties.map((locatie, index) => {
+    return locaties.map((locatie, rondeIndex) => {
       const drankenInRonde = dranken.filter(d => d.locatieId === locatie.id)
       const geteld = tellingen.filter(t => 
         drankenInRonde.some(d => d.id === t.drankId)
       )
 
       return {
-        ronde: index + 1,
+        ronde: rondeIndex + 1,
         geteld
       }
     })
@@ -394,7 +394,7 @@ function App() {
                         </div>
                         <div className="bg-white rounded-lg shadow-sm border border-slate-100 overflow-hidden">
                           <div className="divide-y divide-slate-100">
-                            {dranken.map((drank, index) => (
+                            {dranken.map((drank) => (
                               <div
                                 key={drank.id}
                                 className={`flex justify-between items-center p-4 cursor-pointer transition-colors ${
