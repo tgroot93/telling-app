@@ -24,11 +24,6 @@ export interface DrankTotaal {
   categorie: string;
 }
 
-export interface RondeOverzicht {
-  ronde: number;
-  geteld: Telling[];
-}
-
 export interface Locatie {
   id: string;
   naam: string;
