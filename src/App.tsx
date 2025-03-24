@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, Fragment } from 'react'
-import { Drank, Telling, DrankTotaal, RondeOverzicht, Locatie } from './types'
+import { Drank, Telling, DrankTotaal, Locatie } from './types'
 
 function App() {
   const [dranken, setDranken] = useState<Drank[]>([])
@@ -187,17 +187,17 @@ function App() {
       <div className="sticky top-0 bg-white shadow-md z-20">
         <div className="max-w-md mx-auto p-4">
           <div className="flex flex-wrap justify-between gap-1">
-            {locaties.map((locatie, index) => (
+            {locaties.map((locatie, tabIndex) => (
               <button
                 key={locatie.id}
-                onClick={() => setActieveTab(index)}
+                onClick={() => setActieveTab(tabIndex)}
                 style={{
-                  backgroundColor: actieveTab === index ? '#3b82f6' : '#eff6ff',
-                  color: actieveTab === index ? 'white' : '#1e40af',
+                  backgroundColor: actieveTab === tabIndex ? '#3b82f6' : '#eff6ff',
+                  color: actieveTab === tabIndex ? 'white' : '#1e40af',
                   padding: '0.5rem 0.75rem',
                   borderRadius: '0.5rem',
                   transition: 'all 0.2s',
-                  boxShadow: actieveTab === index ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                  boxShadow: actieveTab === tabIndex ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
                   fontSize: '0.75rem',
                   flex: 1,
                   minWidth: '0'
@@ -364,8 +364,8 @@ function App() {
                   return acc
                 }, {} as Record<string, Drank[]>)
 
-                // Maak één platte lijst van alle dranken met hun categorieën
-                const alleDranken = Object.entries(drankenPerCategorie).flatMap(([categorie, dranken]) => 
+                // Maak één platte lijst van alle dranken voor navigatie
+                const drankenVoorNavigatie = Object.entries(drankenPerCategorie).flatMap(([categorie, dranken]) => 
                   dranken.map(drank => ({ ...drank, categorie }))
                 )
 
@@ -429,11 +429,11 @@ function App() {
                                         e.preventDefault()
                                         
                                         // Vind de huidige index in de platte lijst
-                                        const huidigeIndex = alleDranken.findIndex(d => d.id === drank.id)
+                                        const huidigeIndex = drankenVoorNavigatie.findIndex(d => d.id === drank.id)
                                         
                                         // Ga naar de volgende drank, of terug naar het begin als we aan het einde zijn
-                                        const volgendeIndex = (huidigeIndex + 1) % alleDranken.length
-                                        const volgendeDrank = alleDranken[volgendeIndex]
+                                        const volgendeIndex = (huidigeIndex + 1) % drankenVoorNavigatie.length
+                                        const volgendeDrank = drankenVoorNavigatie[volgendeIndex]
                                         
                                         const input = document.querySelector(`input[data-drank-id="${volgendeDrank.id}"]`) as HTMLInputElement
                                         input?.focus()
