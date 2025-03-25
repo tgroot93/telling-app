@@ -184,7 +184,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      <div className="sticky top-0 bg-white shadow-md z-20">
+      <div className="fixed top-0 left-0 right-0 bg-white shadow-md z-20">
         <div className="max-w-md mx-auto p-4">
           <div className="flex flex-wrap justify-between gap-1">
             {locaties.map((locatie, tabIndex) => (
@@ -267,7 +267,7 @@ function App() {
         </div>
       )}
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto pt-[72px]">
         <div className="max-w-md mx-auto p-4">
           {actieveTab === locaties.length ? (
             <div className="space-y-4 pb-20">
